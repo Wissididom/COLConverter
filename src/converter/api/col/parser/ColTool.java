@@ -1,36 +1,21 @@
 package converter.api.col.parser;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import converter.api.ConverterAPI;
 import converter.api.col.ColFile;
 import converter.api.col.ColFileEntry;
 
 public class ColTool {
 	
-	private static String readFile(File file) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-		String inputLine = "", result = "";
-		while ((inputLine = br.readLine()) != null) {
-			if (result.length() < 1)
-				result = inputLine;
-			else
-				result += "\n" + inputLine;
-		}
-		br.close();
-		return result;
-	}
-	
 	public static ColFile parseCol(File colFile) throws IOException {
-		String colContent = readFile(colFile).replace("\uFEFF", ""); // remove BOM
+		String colContent = ConverterAPI.readFile(colFile).replace("\uFEFF", ""); // remove BOM
 		return ColTool.parseCol(colContent);
 	}
 	

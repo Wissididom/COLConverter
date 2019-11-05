@@ -1,12 +1,9 @@
 package converter.api.pro6plx.parser;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.UUID;
 
@@ -22,21 +19,8 @@ import converter.api.pro6plx.RVPlaylistNode;
 
 public class Pro6PlxTool {
 	
-	private static String readFile(File file) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-		String inputLine = "", result = "";
-		while ((inputLine = br.readLine()) != null) {
-			if (result.length() < 1)
-				result = inputLine;
-			else
-				result += "\n" + inputLine;
-		}
-		br.close();
-		return result;
-	}
-	
 	public static Pro6PlxFile parsePro6Plx(File pro6plxFile) throws IOException {
-		String pro6plxContent = readFile(pro6plxFile).replace("\uFEFF", ""); // remove BOM
+		String pro6plxContent = ConverterAPI.readFile(pro6plxFile).replace("\uFEFF", ""); // remove BOM
 		return Pro6PlxTool.parsePro6Plx(pro6plxContent);
 	}
 	
@@ -204,7 +188,7 @@ public class Pro6PlxTool {
 		sb.append(entries.getVersionNumber());
 		sb.append("\" os=\"");
 		sb.append(entries.getOS());
-		sb.append("\" buildNumber\"");
+		sb.append("\" buildNumber=\"");
 		sb.append(entries.getBuildNumber());
 		sb.append("\">\n");
 		indent += 4;

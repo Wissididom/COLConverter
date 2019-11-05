@@ -4,14 +4,14 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.UUID;
+
+import org.mozilla.universalchardet.ReaderFactory;
 
 import converter.api.col.ColFile;
 import converter.api.col.ColFileEntry;
@@ -31,7 +31,8 @@ public class ConverterAPI {
 	}
 	
 	public static String readFile(File file) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+		// BufferedReader br = new BufferedReader(new FileReader(file));
+		BufferedReader br = ReaderFactory.createBufferedReader(file);
 		String inputLine = "", result = "";
 		while ((inputLine = br.readLine()) != null) {
 			if (result.length() < 1)

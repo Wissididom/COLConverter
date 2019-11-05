@@ -42,7 +42,7 @@ public class RVDocumentCue {
 		return this;
 	}
 	
-	public int getEntryCount(int index) {
+	public int getEntryCount() {
 		return this.entries.size();
 	}
 	
